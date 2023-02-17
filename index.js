@@ -58,41 +58,44 @@ form.addEventListener('submit', (event) => {
 
 //};
 
-//Chatgpt//
 function mapApi() {
-    const container = document.getElementById('container2');
-    const cityName = weather[0];
-    const weatherData = weather[1];
-  
-    // Create a heading element for the city name
-    const cityHeading = document.createElement('h2');
-    cityHeading.className = 'city-name';
-    cityHeading.textContent = cityName;
-    container.appendChild(cityHeading);
-  
-    // Map the weather data array and create elements for each day
-    weatherData.map((day) => {
-      const dayDiv = document.createElement('div');
-      dayDiv.className = 'day';
-  
-      const date = document.createElement('p');
-      date.className = 'date';
-      date.textContent = day.date;
-      dayDiv.appendChild(date);
-  
-      const temp = document.createElement('p');
-      temp.className = 'temp';
-      temp.textContent = `Temperature: ${day.temp}`;
-      dayDiv.appendChild(temp);
-  
-      // Add more weather information as needed
-  
-      container.appendChild(dayDiv);
-    });
-  }
-  
+  const container = document.getElementById('container2');
+  const cityName = weather[0];
+  const weatherData = weather[1];
 
-//
+  // Create a heading element for the city name
+  const cityHeading = document.createElement('h2');
+  cityHeading.className = 'city-name';
+  cityHeading.textContent = cityName;
+  container.appendChild(cityHeading);
+
+  // Create an element for the current weather conditions
+  const currentWeather = document.createElement('p');
+  currentWeather.className = 'current-weather';
+  currentWeather.textContent = `Current temperature: ${weatherData[0].main.temp}°F, ${weatherData[0].weather[0].description}`;
+  container.appendChild(currentWeather);
+
+  // Map the weather data array and create elements for each day
+  weatherData.slice(1).map((day) => {
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'day';
+
+    const date = document.createElement('p');
+    date.className = 'date';
+    date.textContent = day.dt_txt;
+    dayDiv.appendChild(date);
+
+    const temp = document.createElement('p');
+    temp.className = 'temp';
+    temp.textContent = `Temperature: ${day.main.temp}°F`;
+    dayDiv.appendChild(temp);
+
+    // Add more weather information as needed
+
+    container.appendChild(dayDiv);
+  });
+};
+
 
 function getapi2(){
     var requestUrl2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=5&appid=a803dcd93207387f5f068d610b14840b&units=imperial`
